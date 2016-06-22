@@ -1,0 +1,80 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>My site</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<meta http-equiv="description" content="">
+<meta http-equiv="keywords" content="">
+<!-- TemplateEndEditable -->
+<link href="file:///C|/Users/ALEXIS VASQUEZ/Desktop/Adobe Dreamweaver CS6/fresh/css/main.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+#stacked-featured-popular-wrapper #stacked-featured-popular .split-home .column-one #featured-box .info table tr td form label {
+	font-size: 14px;
+}
+#stacked-featured-popular-wrapper #stacked-featured-popular .split-home .column-one #featured-box .info table tr td form label {
+	font-size: 18px;
+}
+#stacked-featured-popular-wrapper #stacked-featured-popular .split-home .column-one #featured-box .info table {
+	text-align: center;
+}
+.registrar {
+	color: #FFFFFF;
+}
+.r {
+	font-size: 1em;
+}
+</style>
+</head>
+<body class="index">
+<div id="header-wrapper">
+<div id="header" class="content">
+  <ul id="header-menu">
+  <li class="last"><a id="header-register" href="#">Registrarse</a></li>
+</ul></div>
+</div>
+<div id="fma-wrapper">
+  <div id="fma" class="content">
+<h1>Morbilidad Correspondiente a las 5 Enfermedades de Mayor Índice</h1>
+</div>
+</div>
+<div id="stacked-featured-popular-wrapper"><!-- TemplateBeginEditable name="MainContent" -->
+  <div id="stacked-featured-popular" class="content">
+    <div class="split-home">
+      <div class="column-one">
+        <div id="featured-box" class="home-box">
+          <h2>Iniciar Sesión</h2>
+          <div class="info">
+            <table width="400" border="1" align="center">
+              <tr>
+                <td><form name="form1" method="post" action="">
+                  <label for="usuario">Usuario:</label>
+                </form></td>
+                <td><input name="usuario" type="text" id="usuario" size="40"></td>
+              </tr>
+              <tr>
+                <td><form name="form2" method="post" action="">
+                  <label for="password">Contraseña:</label>
+                </form></td>
+                <td><input name="password" type="text" id="password" size="40"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="search-pod">
+      <div id="home-search">
+        <form action="/products" method="get" id="top-search-form2">
+          <input type="submit" class="button" alt="Search" id="home-search-submit" value="Search" name="home-search-submit">
+          <input type="text" placeholder="Search..." value="" id="home-search-query" name="home-search-query" class="field">
+          <input type="hidden" value="1" name="Search2">
+        </form>
+      </div>
+    </div>
+  </div>
+<!-- TemplateEndEditable --></div>
+<!-- footer --><!-- TemplateBeginEditable name="end" --><!-- TemplateEndEditable -->
+</body>
+</html>

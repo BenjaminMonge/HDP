@@ -1,0 +1,8 @@
+Este el directorio indice
+El proyecto creado por python esta en la carpeta morbilidad
+Y el ambiente virtual de python y django esta en "venv"
+Este debe inicializarse con source venv/bin/activate
+
+El proyecto contiene una app que es "datashow", donde se encuentra nuestra aplicacion, por ende los urls tienen la forma
+localhost/data/*
+
