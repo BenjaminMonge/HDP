@@ -2,7 +2,7 @@
 <!DOCTYPE html> 
 <html>
 <head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Agregar</title>
 
 <meta http-equiv="description" content="">
@@ -36,13 +36,11 @@
                 <tr>
                   <td><table width="940" border="0">
                     <tr>
-                      <td><form name="form1" method="post" enctype="multipart/form-data">{% csrf_token %}
+                      <td><div id="csvload">
                         Cargar Archivos a Tablas
-                        <input type="file" name="csv_file" />
-                        <input type="submit" value="Upload" />
-                      </form></td>
+                        <input type="file" id="csvFile" onchange="handleFiles(this.files)" accept=".csv"/>
+                      </div></td>
                       <td valign="middle"><form name="form2">
-                      {% csrf_token %}
                         Guardar a Base de Datos
                         <input type="button" onclick="tableToJson(alldata);" name="guardar" id="guardar" value="Guardar">
                       </form></td>
@@ -54,7 +52,10 @@
             <div id="consultas">
             <div>
               <input class="search" placeholder="Search" />
-              <button class="sort" data-sort="enfermedad">
+              <!--<button value="sort by name" class="sort" data-sort="enfermedad">-->
+            
+                  <input type="button" onclick="addone();" value="Nueva"/>
+               
             </div> 
               <table id="alldata" width="1500" border="1" align="center">
                <thead>
@@ -65,15 +66,13 @@
                   <th width="193" >Total</th>
                   <th width="193" >Mes</th>
                   <th width="193" >Agno</th>
-                  <th>
-                  <input type="button" onclick="addone();" value="Nueva" />
-                  </th>
+                  
                </tr>
                </thead>
                  <tbody class="list">
                   {% if lista_consultas %}
                   {% for consulta in lista_consultas %}
-                <tr>
+                <tr bgcolor="#98FB98">
                   <td width="294" class="enfermedad"><div contenteditable> {{consulta.enfermedad}} </div></td>
                   <td width="172" class="masculino"><div contenteditable> {{consulta.masculino}} </div></td>
                   <td width="172" class="femenino"><div contenteditable> {{consulta.femenino}} </div></td>
@@ -99,12 +98,9 @@
 <div id="footer-wrapper"></div>
 </body>
 </html>
-<script src="{% static 'js/sorting.js' %}"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.js"></script>
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/guardar.js' %}"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 
 

@@ -13,111 +13,44 @@
         // Este script genera el grafico 
         function init(){ //No estoy seguro si init() es necesaria, la llamo en el body onload="init();" para asegurar que el script se ejecuta
             $(function () {
-
-                // En el primer parametro va el Json, actualmente jala datos de una web
-                $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?', function (archivo) {
-
+                $.getJSON('/data/extrapolate/getdata', function (archivo) {
+                    console.log(archivo)
                     $('#container').highcharts({
+                title: {
+                text: 'Morbilidad mensual en El Salvador',
+                x: -20 //center
+            },
+                subtitle: {
+                text: 'Extrapolacion',
+                x: -20
+            },
+            xAxis: {
+                categories: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+            },
 
-                        data: {
-                            csv: archivo
-                        },
-
-                        title: {
-                            text: 'Morbilidad en El Salvador'
-                        },
-
-                        subtitle: {
-                            text: 'Extrapolacion'
-                        },
-
-                        xAxis: {
-                            tickInterval: 7 * 24 * 3600 * 1000, // one week
-                            tickWidth: 0,
-                            gridLineWidth: 1,
-                            labels: {
-                                align: 'left',
-                                x: 3,
-                                y: -3
-                            }
-                        },
-
-                        yAxis: [{ // left y axis
-                            title: {
-                                text: null
-                            },
-                            labels: {
-                                align: 'left',
-                                x: 3,
-                                y: 16,
-                                format: '{value:.,0f}'
-                            },
-                            showFirstLabel: false
-                        }, { // right y axis
-                            linkedTo: 0,
-                            gridLineWidth: 0,
-                            opposite: true,
-                            title: {
-                                text: null
-                            },
-                            labels: {
-                                align: 'right',
-                                x: -3,
-                                y: 16,
-                                format: '{value:.,0f}'
-                            },
-                            showFirstLabel: false
-                        }],
-
-                        legend: {
-                            align: 'left',
-                            verticalAlign: 'top',
-                            y: 20,
-                            floating: true,
-                            borderWidth: 0
-                        },
-
-                        tooltip: {
-                            shared: true,
-                            crosshairs: true
-                        },
-
-                        plotOptions: {
-                            series: {
-                                cursor: 'pointer',
-                                point: {
-                                    events: {
-                                        click: function (e) {
-                                            hs.htmlExpand(null, {
-                                                pageOrigin: {
-                                                    x: e.pageX || e.clientX,
-                                                    y: e.pageY || e.clientY
-                                                },
-                                                headingText: this.series.name,
-                                                maincontentText: Highcharts.data('%A, %b %e, %Y', this.x) + ':<br/> ' +
-                                                    this.y + ' visits', //No existen secciones para texto excepto para titulo y subtitulo
-                                                width: 500              //Los otros parecen venir de la data.
-                                            });
-                                        }
-                                    }
-                                },
-                                marker: {
-                                    lineWidth: 1
-                                }
-                            }
-                        },
-
-                        series: [{
-                            name: 'All visits',
-                            lineWidth: 4,
-                            marker: {
-                                radius: 4
-                            }
-                        }, {
-                            name: 'Future',
-                           
-                        }]
-                    });
+            yAxis: {
+                title: {
+                text: 'Consultas (Total)'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+             }]
+            },
+        tooltip: {
+            valueSuffix: ' Personas'
+            },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: JSON.parse(archivo)
+    });
+                    
                 });
 
             });
@@ -169,7 +102,7 @@
                   {% endfor %}
                 {% else %}
                 {% endif %}
-              </table>      
+    </table>      
 </div>
 
     <script src="{% static 'app/scripts/bootstrap.js' %}"></script>

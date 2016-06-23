@@ -83,7 +83,6 @@ DATABASES = {
         'PASSWORD': 'root',
         'HOST': '127.0.0.1',
         'PORT': '3306',
-        'init_command': 'SET foreign_key_checks = 0;',
     }
 }
 
@@ -132,3 +131,4 @@ STATICFILES_DIRS = (
 )   
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),"static")
+

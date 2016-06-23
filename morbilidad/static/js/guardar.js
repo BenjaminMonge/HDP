@@ -1,3 +1,61 @@
+var options = {
+  valueNames: [ 'enfermedad', 'masculino', 'femenino', 'total', 'mes', 'ano',]
+};
+
+var consultaList = new List('consultas', options);
+
+function handleFiles(files) {
+	// Check for the various File API support.
+	if (window.FileReader) {
+		// FileReader are supported.
+		getAsText(files[0]);
+	} else {
+		alert('FileReader are not supported in this browser.');
+	}
+}
+
+function getAsText(fileToRead) {
+	var reader = new FileReader();
+	// Handle errors load
+	reader.onload = loadHandler;
+	reader.onerror = errorHandler;
+	// Read file into memory as UTF-8
+	reader.readAsText(fileToRead, 'ISO-8859-1');
+}
+
+function loadHandler(event) {
+	var csv = event.target.result;
+	processData(csv);
+}
+
+function processData(csv) {
+    var allTextLines = csv.split(/\r\n|\n/);
+    var lines = [];
+    while (allTextLines.length) {
+        lines.push(allTextLines.shift().split(','));
+    }
+	drawOutput(lines);
+}
+
+function errorHandler(evt) {
+	if(evt.target.error.name == "NotReadableError") {
+		alert("No se puede leer el archivo");
+	}
+}
+
+function drawOutput(lines){
+	for(var i=0; i<lines.length; i++) {
+	
+	    $('#alldata').append('<tr><td width="294" class="enfermedad"><div contenteditable>'+lines[i][0]+'</div></td><td width="172" class="masculino"><div contenteditable>'+lines[i][1]+'</div></td><td width="172" class="femenino"><div contenteditable>'+lines[i][2]+'</div></td><td width="93" class="total"><div contenteditable>'+lines[i][3]+'</div></td><td width="93" class="mes"><div contenteditable>'+lines[i][4]+'</div></td><td width="93" class="ano"><div contenteditable>'+lines[i][5]+'</div></td><td><input type="button" onclick="deleteRow(this);" value="Delete" /></td></tr>')	
+}
+	
+$('#csvFile').val('')
+
+var consultaList = new List('consultas', options);
+
+}
+
+
 function deleteRow(row)
 {
     var i=row.parentNode.parentNode.rowIndex;
@@ -31,11 +89,11 @@ var data = [];
 	    cut= cut.replace('<div contenteditable=""> ', '');
             rowData[ headers[j] ] = cut;
         }
-        data.push(rowData); 
+	data.push(rowData) 
     }
 
     $.ajax({
-      url:"",
+      url:"/data/management/",
       type:"POST",
       contentType: 'application/json',
       data: JSON.stringify(data),
