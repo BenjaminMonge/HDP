@@ -3,9 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} - My Django Application</title>
+    <title>{{ title }}Extrapolacion</title>
     {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
        
@@ -13,7 +12,6 @@
         // Este script genera el grafico 
         function init(){ //No estoy seguro si init() es necesaria, la llamo en el body onload="init();" para asegurar que el script se ejecuta
             $(function () {
-                $.getJSON('/extrapolate/getdata', function (archivo) {
                 $('#container').highcharts({
                 title: {
                 text: 'Morbilidad mensual en El Salvador',
@@ -47,11 +45,9 @@
             verticalAlign: 'middle',
             borderWidth: 0
         },
-        series: JSON.parse(archivo)
+        series: {{ graphdata|safe }}
     });
-                    
-                });
-
+                        
             });
         }
     </script>
@@ -64,6 +60,8 @@
     <script src="{% static 'app/scripts/highcharts.js' %}"></script>
     <script src="{% static 'app/scripts/data.js' %}"></script>
     <script src="{% static 'app/scripts/exporting.js' %}"></script>
+    <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
+    <script src="{% static 'app/scripts/respond.js' %}"></script>
          
 
 <!-- Additional files for the Highslide popup effect -->
@@ -103,9 +101,6 @@
                 {% endif %}
     </table>      
 </div>
-
-    <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
-    <script src="{% static 'app/scripts/respond.js' %}"></script>
 {% block scripts %}{% endblock %}
 
 </body>

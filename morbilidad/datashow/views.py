@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
-from django.http import JsonResponse	
+from django.http import JsonResponse
+from django.db import connection
+from django.db.models import Q	
 # The equivalent of the server page that distributes resources based or URI
 #Here are the controllers too
 from .models import Consulta, Enfermedad, Mes, Ano
@@ -40,21 +42,23 @@ def management(request):
 )
 
 def extrapolate(request):
+	listacon = []
+	toreturn = []	
+	dbdise = getDisease()
+	for x in range(0, len(dbdise)):
+		datadb = []
+		for y in range(0, len(dbdise[x])):
+			listacon.append(dbdise[x][y])
+			datadb.append(int(dbdise[x][y].masculino)+int(dbdise[x][y].femenino))	
+		ranvar = {'name': dbdise[x][0].enfermedad.nombreenf, 'data': datadb}
+		toreturn.append(ranvar)	
 
 	context = {
-		'lista_consultas' : Consulta.objects.all()
+		'lista_consultas' : listacon,
+		'graphdata' : json.dumps(toreturn, ensure_ascii=True).encode("utf8")
 	    }
 	return render(request, 'datashow/html/layout.html', context)
 
-
-def getData(request):
-	toreturn = []	
-	data1 = {'name':'Tokyo', 'data': [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]}
-	data2 = {'name':'New York', 'data': [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]}
-	toreturn.append(data1)
-	toreturn.append(data2)
-
-	return JsonResponse(json.dumps(toreturn), safe=False)
 
 def editeq(request):
 	#do a 
@@ -69,7 +73,15 @@ def see(request):
 	    }
 	return render(request, 'datashow/html/Muestra de Consultas.html', context)
 	
+def getDisease():
+	topdiseases = []
+	cursor = connection.cursor()
+	cursor.execute("select *, (fem+mas) as total from (select enfermedad_id, sum(femenino) as fem, sum(masculino) as mas from (select * from datashow_consulta where ano_id=2015 order by enfermedad_id) as dis group by dis.enfermedad_id) as sums order by total desc limit 5")
+	enfermedades = cursor.fetchall()
+	for p in enfermedades:
+		adise = Consulta.objects.filter(Q(enfermedad_id__exact=p[0]), Q(ano_id=2015)).distinct()
+		topdiseases.append(adise)
 
-
+	return topdiseases
 
 

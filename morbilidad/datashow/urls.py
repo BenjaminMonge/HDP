@@ -10,6 +10,5 @@ urlpatterns = [
 	url(r'^see/$', views.see, name='see'),
 	url(r'^editeq/$', views.editeq, name='editeq'),
 	url(r'^extrapolate/$', views.extrapolate, name='extrapolate'),
-	url(r'^extrapolate/getdata$', views.getData, name='data'),
 
 ]
