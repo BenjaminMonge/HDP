@@ -93,7 +93,7 @@ var data = [];
     }
 
     $.ajax({
-      url:"/data/management/",
+      url:"/management/",
       type:"POST",
       contentType: 'application/json',
       data: JSON.stringify(data),

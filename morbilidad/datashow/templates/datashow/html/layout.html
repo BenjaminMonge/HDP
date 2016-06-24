@@ -13,9 +13,8 @@
         // Este script genera el grafico 
         function init(){ //No estoy seguro si init() es necesaria, la llamo en el body onload="init();" para asegurar que el script se ejecuta
             $(function () {
-                $.getJSON('/data/extrapolate/getdata', function (archivo) {
-                    console.log(archivo)
-                    $('#container').highcharts({
+                $.getJSON('/extrapolate/getdata', function (archivo) {
+                $('#container').highcharts({
                 title: {
                 text: 'Morbilidad mensual en El Salvador',
                 x: -20 //center

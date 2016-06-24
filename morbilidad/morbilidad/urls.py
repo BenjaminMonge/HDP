@@ -19,7 +19,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-	url(r'^data/', include('datashow.urls')),
+	url(r'^', include('datashow.urls')),
     url(r'^admin/', admin.site.urls),
 ]
 

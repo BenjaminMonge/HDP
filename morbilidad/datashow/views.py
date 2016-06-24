@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse	
-from django.db.models import Q
+from django.http import JsonResponse	
 # The equivalent of the server page that distributes resources based or URI
 #Here are the controllers too
 from .models import Consulta, Enfermedad, Mes, Ano
@@ -70,5 +69,7 @@ def see(request):
 	    }
 	return render(request, 'datashow/html/Muestra de Consultas.html', context)
 	
+
+
 
 
