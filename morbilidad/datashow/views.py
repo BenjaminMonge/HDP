@@ -5,9 +5,12 @@ from django.db import connection
 from django.db.models import Q	
 # The equivalent of the server page that distributes resources based or URI
 #Here are the controllers too
-from .models import Consulta, Enfermedad, Mes, Ano
+from .models import Consulta, Enfermedad, Mes, Ano, Ecuacion
 import csv
 import json
+import parser
+from numpy import array	
+from scipy.optimize import leastsq
 
 def index(request):
 	return HttpResponse("Las rutas disponibles son /management /see /editeq /extrapolate. Este es el inicio")
@@ -43,15 +46,31 @@ def management(request):
 
 def extrapolate(request):
 	listacon = []
-	toreturn = []	
+	toreturn = []
 	dbdise = getDisease()
 	for x in range(0, len(dbdise)):
-		datadb = []
-		for y in range(0, len(dbdise[x])):
-			listacon.append(dbdise[x][y])
-			datadb.append(int(dbdise[x][y].masculino)+int(dbdise[x][y].femenino))	
-		ranvar = {'name': dbdise[x][0].enfermedad.nombreenf, 'data': datadb}
-		toreturn.append(ranvar)	
+		datamasc = []
+		datafem = []
+		xlist = []
+		total = []
+		myeq = Ecuacion.objects.get(nombreec="Extrapolacion lineal").asig
+		for y in range(0, len(dbdise[x])): #Extrayendo los datos de los objetos de la base
+			#listacon.append(dbdise[x][y])
+			xlist.append(int(y+1))
+			datamasc.append(int(dbdise[x][y].masculino))
+			datafem.append(int(dbdise[x][y].femenino))
+
+		remasc = getValue(xlist, datamasc, 2016, myeq)#here you must extratpolate expol(datadb)		
+		refem = getValue(xlist, datafem, 2016, myeq)#here you must extratpolate expol(datadb)
+		meses = asignarMeses()
+		#reformating the data
+		for i in range(0, 12):
+			listacon.append(Consulta(masculino=remasc[i], femenino=refem[i], ano=Ano(identi=2017), enfermedad=dbdise[x][0].enfermedad, mes=meses[i]))
+			total.append(remasc[i]+refem[i])
+
+		graphd = {'name': dbdise[x][0].enfermedad.nombreenf, 'data': total}
+
+		toreturn.append(graphd)
 
 	context = {
 		'lista_consultas' : listacon,
@@ -62,8 +81,8 @@ def extrapolate(request):
 
 def editeq(request):
 	#do a 
-	context = {
-
+	context	 = {
+		
 	}
 	return render(request, 'datashow/html/Editar Ecuaciones.html', context)
 
@@ -83,5 +102,46 @@ def getDisease():
 		topdiseases.append(adise)
 
 	return topdiseases
+
+def getValue(dx, dy, year, myeq):
+	list_interpol = []
+	xi=array(dx)
+	yi=array(dy)
+
+	afir, bfir = 1.0, 1.0
+
+	sol = leastsq(error, [afir, bfir], args=(xi, yi, myeq))	
+	a = sol[0][0]
+	b = sol[0][1]
+	uplimit = 12*(year-2015)
+	for x in range(0, 12*(year-2015)):
+  		res = eval(myeq)
+		list_interpol.append(int(res))
+
+	return list_interpol[(uplimit-12):uplimit]	
+
+def error(parametros,x,y, myeq):
+  ''' El error se define pasando primero los parámetros y luego los vectores a ajustar '''
+  a,b = parametros
+  ec = myeq
+  equation = y - eval(ec)
+  return equation
+
+def asignarMeses():
+	meses = []
+	meses.append(Mes(nombremes='Enero'))
+	meses.append(Mes(nombremes='Febrero'))
+	meses.append(Mes(nombremes='Marzo'))
+	meses.append(Mes(nombremes='Abril'))
+	meses.append(Mes(nombremes='Mayo'))
+	meses.append(Mes(nombremes='Junio'))
+	meses.append(Mes(nombremes='Julio'))
+	meses.append(Mes(nombremes='Agosto'))
+	meses.append(Mes(nombremes='Septiembre'))
+	meses.append(Mes(nombremes='Octubre'))
+	meses.append(Mes(nombremes='Noviembre'))
+	meses.append(Mes(nombremes='Diciembre'))
+
+	return meses
 
 
