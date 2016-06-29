@@ -1,9 +1,10 @@
+{% load staticfiles %}
 <!doctype html>
 
 <head>
 <title>Morbilidad | Editar Ecuaciones</title>
 <meta charset="UTF-8" />
-<link href="style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 <style type="text/css">
 .normalpage #page #bodywrap #contentwrap #contents #normalpage #left article table tr td form label {
 	font-size: 14px;
@@ -52,149 +53,22 @@
           <section id="left">
             <h2>Editar Ecuaciones</h2>
             <article>
-              <p>Editar Ecuaciones              </p>
-              <table width="400" border="1" align="center">
-                <tr>
-              <td width="208"><form name="form1" method="post" action="">
-                <label for="ec1">Ecuacion</label>
-              1
-              </form></td>
-              <td width="176"><input name="ec1" type="text" id="ec1" size="25"></td>
+              <p>Editar Ecuaciones</p>
+              <table id="ecuaciones" width="900" border="1" align="center">
+              <tr>
+              <td width="176" name="ecua" type="text" id="ecua" contenteditable="true"> {{ecua.nombreec}} </td>
+              <td align="center"><input type="button" value="+" class="mas"/></td>
+              <td align="center"><input type="button" value="-" class="menos"/></td>
+              <td align="center"><input type="button" value="*" class="por"/></td>
+              <td align="center"><input type="button" value="/" class="entre"/></td>
+              <td align="center"><input type="button" value="^" class="elevado"/></td>
+              <td align="center"><input type="button" value="Var" class="variable"/></td>
+              <td align="center"><input type="button" value="Cte" class="constante"/></td>
               <td width="176"><form name="form7" method="post" action="">
-                <input type="submit" name="buttonec1" id="buttonec1" value="Guardar">
-              </form></td>
-            </tr>
-            <tr>
-              <td><form name="form2" method="post" action="">
-                <label for="ec2">Ecuacion 2</label>
-              </form></td>
-              <td><input name="ec2" type="text" id="ec2" size="25"></td>
-              <td><form name="form8" method="post" action="">
-                <input type="submit" name="buttonec2" id="buttonec2" value="Guardar">
-              </form></td>
-            </tr>
-            <tr>
-              <td><form name="form3" method="post" action="">
-                <label for="ec3">Ecuacion 3</label>
-              </form></td>
-              <td><input name="ec3" type="text" id="ec3" size="25"></td>
-              <td><form name="form9" method="post" action="">
-                <input type="submit" name="buttonec3" id="buttonec3" value="Guardar">
-              </form></td>
-            </tr>
-            <tr>
-              <td><form name="form4" method="post" action="">
-                <label for="ec4">Ecuacion 4</label>
-              </form></td>
-              <td><input name="ec4" type="text" id="ec4" size="25"></td>
-              <td><form name="form10" method="post" action="">
-                <input type="submit" name="buttonec4" id="buttonec4" value="Guardar">
-              </form></td>
-            </tr>
-            <tr>
-              <td><form name="form5" method="post" action="">
-                <label for="ec5">Ecuacion 5</label>
-              </form></td>
-              <td><input name="ec5" type="text" id="ec5" size="25"></td>
-              <td><form name="form11" method="post" action="">
-                <input type="submit" name="buttonec5" id="buttonec5" value="Guardar">
+                <input type="submit" value="Guardar">
               </form></td>
             </tr>
         </table>
-              <div align="center">
-                <p>&nbsp;</p>
-                <p>Tabla de ecuaciones</p>
-                <table width="850" border="0">
-<form id="formulafrm">
-  <tr>
-    <td align="center" valign="middle">
-    
-    
-      <p align="center"> Formula: 
-        <input type="text" name="txtFormula" value="" readonly/>
-      </p>
-      <table width="850" border="0" align="center">
-        
-        
-        <tr>
-          <td align="center">Numeros</td>
-          <td colspan="2" align="center" valign="top">Variables</td>
-          <td align="center">Operadores</td>
-        </tr>
-        <tr>
-          <td width="249" align="center"><table width="94" align="center"  >
-
-<tbody >
-
-<tr>
-
-<td width="24" align="center"><input type="button" value="7" onclick="agregarNumero('7');"/></td>
-<td width="24" align="center"><input type="button" value="8" onclick="agregarNumero('8');"/></td>
-<td width="24" align="center"><input type="button" value="9" onclick="agregarNumero('9');"/></td>
-</tr>
-<tr>
-<td align="center"><input type="button" value="4" onclick="agregarNumero('4');"/></td>
-<td align="center"><input type="button" value="5" onclick="agregarNumero('5');"/></td>
-<td align="center"><input type="button" value="6" onclick="agregarNumero('6');"/></td>
-</tr>
-<tr>
-<td align="center"><input type="button" value="1" onclick="agregarNumero('1');"/></td>
-<td align="center"><input type="button" value="2" onclick="agregarNumero('2');"/></td>
-<td align="center"><input type="button" value="3" onclick="agregarNumero('3');"/></td>
-</tr>
-<tr>
-<td align="center">&nbsp;</td>
-<td align="center"><input type="button" value="0" onclick="agregarNumero('0');"/></td>
-<td align="center">&nbsp;</td>
-</tr>
-</tbody>
-</table>
-</td>
-          <td colspan="2" align="center" valign="top"><table width="94" border="0" align="center">
-            <tr align="center">
-                <td><input type="button" value="X" onclick="agregarNumero('x');"/></td>
-                <td><input type="button" value="Y" onclick="agregarNumero('y');"/></td>
-                <td><input type="button" value="Z" onclick="agregarNumero('z');"/></td>
-              </tr>
-          </table></td>
-          <td width="278" align="center" valign="top"><table width="94" border="0" align="center">
-            <tr>
-              <td align="center"><input type="button" value="+" onclick="agregarNumero('+');"/></td>
-              <td align="center"><input type="button" value="-" onclick="agregarNumero('-');"/></td>
-              <td align="center"><input type="button" value="*" onclick="agregarNumero('*');"/></td>
-              <td align="center"><input type="button" value="^" onclick="agregarNumero('^');"/></td>
-              </tr>
-            <tr>
-              <td align="center"><input type="button" value="/" onclick="agregarNumero('/');"/></td>
-              <td align="center"><input type="button" value="=" onclick="agregarNumero('=');"/></td>
-              <td align="center"><input type="button" value="." onclick="agregarNumero('.');"/></td>
-              </tr>
-          </table></td>
-        </tr>
-        <tr>
-          <td align="center">&nbsp;</td>
-          <td>&nbsp;</td>
-          <td align="right">&nbsp;</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td align="center"><p>&nbsp;</p></td>
-          <td width="156">
-            <input name="txtguardar" type="submit" class="boton" id="txtguardar" value="Guardar" />
-          </td>
-          <td width="149" align="right">
-            <input name="txtCancelar" type="reset" class="boton" id="txtCancelar" value="Cancelar" />
-          </td>
-          <td>&nbsp;</td>
-        </tr>
-    </table>
-      <p> </p>
-      <p></p></td>
-  </tr>
-  </form>
-</table>
-                                
-              </div>
               <p>&nbsp;</p>
             </article>
            
@@ -218,3 +92,11 @@
 <!-- END PAGE SOURCE -->
 </body>
 </html>
+<script>
+  function addSymbol(param) {
+
+  }
+</script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/formula.js' %}"></script>
+

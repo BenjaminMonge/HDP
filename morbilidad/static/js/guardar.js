@@ -6,8 +6,8 @@ var consultaList = new List('consultas', options);
 
 $(document).ready(function () {
     $(document).on('click', '#alldata .add', function () {
-
         var row = $(this).closest('tr');
+	console.log(row)
         var clone = row.clone();
         var tr = clone.closest('tr');
 	tr.css('background-color','#FFFFFF');

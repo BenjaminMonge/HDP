@@ -11,7 +11,7 @@ class Ano(models.Model):
 		return str(self.identi)
 @python_2_unicode_compatible
 class Mes(models.Model):
-	nombremes = models.CharField(max_length=15, primary_key=True)
+	nombremes = models.CharField(max_length=20, primary_key=True)
 	def __str__(self):
 		return self.nombremes
 

@@ -13,6 +13,29 @@
 	font-weight: bold;
 	font-size: 14px;
 }
+
+#alldata {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#alldata td, #alldata th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+#alldata tr:nth-child(even){background-color: #f2f2f2}
+
+#alldata tr:hover {background-color: #ddd;}
+
+#alldata th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #4CAF50;
+    color: white;
+}
 </style>
 <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <!--[if IE 6]>
@@ -142,7 +165,6 @@
 <!-- END PAGE SOURCE -->
 </body>
 </html>
-
+<script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/list.js' %}"></script>
 <script src="{% static 'js/guardar.js' %}"></script>
-<script src="{% static 'js/jquery.min.js' %}"></script>

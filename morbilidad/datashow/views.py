@@ -100,8 +100,9 @@ def extrapolate(request):
 def editeq(request):
 	#do a 
 	context	 = {
-		
+		'ecuaciones': Ecuacion.objects.all()
 	}
+	
 	return render(request, 'datashow/html/Editar Ecuaciones.html', context)
 
 def see(request):
