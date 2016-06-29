@@ -28,6 +28,24 @@
 .normalpage #page #bodywrap #contentwrap #contents #normalpage #left .container.body-content #alldata tr th {
 	font-size: 16px;
 }
+
+#alldata {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#alldata td, #alldata th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+#alldata th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #4CAF50;
+    color: white;
 </style>
 <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <!--[if IE 6]>
@@ -47,8 +65,8 @@
         <li><a href="/see">Mostrar Consultas</a></li>
         <li><a href="/management">Agregar Consultas</a></li>
         <li><a href="/editeq">Editar Ecuaciones</a></li>
-        <li><a href="/admin">Sesion de administrador</a></li>
         <li class="current"><a href="/extrapolate">Extrapolacion</a></li>
+        <li><a href="/admin/">Sesion de administrador</a></li> 
         </ul>
       </nav>
       <header id="normalheader"></header>
@@ -67,7 +85,7 @@
                   {% endfor %}
                 </select>
 
-                <button type="submit" value="Extrapolar"></button>
+                <input type="submit" value="Extrapolar"></input>
         </form>
     <!--Si quieren meter algo arriba del contenido.-->
     
@@ -75,7 +93,7 @@
 
         <section id="normalpage">
           <section id="left">
-            <h2>Grafico</h2>
+            <h2>Enfermedades con mas consultas</h2>
             
              <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
     <script>
@@ -123,11 +141,6 @@
     </script>
 
 </head>
-
-
-<nav>
-        <h1 id="sitename"> <a href="Administrar Datos.html">Morbilidad </a></h1>
-      </nav>
       
       
 <body onload="init();">

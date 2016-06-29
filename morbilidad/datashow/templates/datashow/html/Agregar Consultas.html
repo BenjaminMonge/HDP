@@ -2,7 +2,7 @@
 <!doctype html>
 
 <head>
-<title>Morbilidad | Agregar Consulta</title>
+<title>Agregar Consulta</title>
 <meta charset="UTF-8"/>
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 <style type="text/css">
@@ -25,10 +25,6 @@
     text-align: left;
     padding: 8px;
 }
-
-#alldata tr:nth-child(even){background-color: #f2f2f2}
-
-#alldata tr:hover {background-color: #ddd;}
 
 #alldata th {
     padding-top: 12px;
@@ -55,8 +51,8 @@
           <li><a href="/see">Mostrar Consultas</a></li>
           <li class="current"><a href="/management">Agregar Consultas</a></li>
           <li><a href="/editeq">Editar Ecuaciones</a></li>
-          <li><a href="/admin/">Sesion de administrador</a></li>
-          <li><a href="/extrapolate">Extrapolacion</a></li>
+           <li><a href="/extrapolate">Extrapolacion</a></li>
+          <li><a href="/admin/">Sesion de administrador</a></li>  
         </ul>
       </nav>
       <header id="normalheader"></header>
@@ -128,6 +124,20 @@
                 </tr>
                   {% endfor %}
                 {% else %}
+                <tr>
+                  <td width="294" class="enfermedad" type="text" contenteditable="true"></td>
+                  <td width="172" id="masculino" class="masculino" contenteditable="true"></td>
+                  <td width="172" id="femenino" class="femenino" contenteditable="true"> </td>
+                  <td width="93" id="total" class="total" contenteditable="true"></td>
+                  <td width="93" class="mes" type="text" contenteditable="true"></td>
+                  <td width="93" id="ano" class="ano" type="text" contenteditable="true"></td>
+                  <td>
+                  <input type="button" class="add" value="Nueva" />
+                  </td>
+                  <td>
+                  <input type="button" class="delete" value="Borrar" />
+                  </td>
+                </tr>
                 No hay datos en la base
                 {% endif %}
               </tbody> 

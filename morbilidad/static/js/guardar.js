@@ -127,7 +127,10 @@ var data = [];
 	    }	
             rowData[ headers[j] ] = cut;
         }
-	data.push(rowData) 
+
+	if(rowData.enfermedad!==''){
+	data.push(rowData)
+ 	} 
     }
 
     $.ajax({

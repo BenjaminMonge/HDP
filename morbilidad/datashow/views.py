@@ -2,7 +2,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.db import connection
-from django.db.models import Q	
+from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt	
 # The equivalent of the server page that distributes resources based or URI
 #Here are the controllers too
 from .models import Consulta, Enfermedad, Mes, Ano, Ecuacion
@@ -96,18 +97,27 @@ def extrapolate(request):
 		return render(request, 'datashow/html/layout.html', {'formulas' : Ecuacion.objects.all()})
     
 
-
+@csrf_exempt
 def editeq(request):
-	if(request.is_ajax):
+
+	if request.is_ajax():
 		Ecuacion.objects.all().delete()
 		objs = json.loads(request.body)
+		limit = len(objs)
+		for x in range(0, limit):
+			ecu, created = Ecuacion.objects.get_or_create(nombreec=objs[x]["nombre"], asig=objs[x]["reglaasignacion"],)
 		#save here
-	#do a 
-	context	 = {
-		'ecuaciones': Ecuacion.objects.all()
-	}
-	
-	return render(request, 'datashow/html/Editar Ecuaciones.html', context)
+		context	 = {
+			'ecuaciones': Ecuacion.objects.all()
+		}
+
+	 	return	render(request, 'datashow/html/Editar Ecuaciones.html', context)
+
+	else:
+		context	 = {
+			'ecuaciones': Ecuacion.objects.all()
+		}
+	 	return render(request, 'datashow/html/Editar Ecuaciones.html', context)
 
 def see(request):
 	context = {
