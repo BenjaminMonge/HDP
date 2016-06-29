@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8*-
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.db import connection
@@ -13,70 +13,88 @@ from numpy import array
 from scipy.optimize import leastsq
 
 def index(request):
-	return HttpResponse("Las rutas disponibles son /management /see /editeq /extrapolate. Este es el inicio")
+	return render(request, 'datashow/html/Bienvenido.html', {})
 
 def management(request):
 	lista_consultas = []
 
    	if request.is_ajax():
-	 Consulta.objects.all().delete()		
+	 Consulta.objects.all().delete()
+	 Mes.objects.all().delete()
+	 Ano.objects.all().delete()	
+	 Enfermedad.objects.all().delete()	
+
 	 objs = json.loads(request.body)
+
 	 limit =len(objs)
 	 for x in range(0, limit):
-	 	print(x)
 	 	mascu = int(objs[x]["masculino"])
 		feme = int(objs[x]["femenino"])
 		m, created = Mes.objects.get_or_create(nombremes=objs[x]["mes"])
-		an, created = Ano.objects.get_or_create(identi=int(objs[x]["agno"]))
+		print(created)
+		an, created = Ano.objects.get_or_create(identi=int(objs[x]["ano"]))
 		enf, created = Enfermedad.objects.get_or_create(nombreenf=objs[x]["enfermedad"])
 		con, created = Consulta.objects.get_or_create(masculino=mascu, femenino=feme, ano=an, enfermedad=enf, mes=m)
 		lista_consultas.append(con)
+		
 		m = None
 		an =None
 		enf = None
+
 		context = {
 			'lista_consultas' : lista_consultas
 	    	}
 
-	 return render(request, 'datashow/html/Agregar Datos.html', context)
+	 return render(request, 'datashow/html/Agregar Consultas.html', context)
 
 	else:
-		return render(request, 'datashow/html/Agregar Datos.html', {'lista_consultas' : Consulta.objects.all()}
+		return render(request, 'datashow/html/Agregar Consultas.html', {'lista_consultas' : Consulta.objects.all()}
 )
 
+
 def extrapolate(request):
-	listacon = []
-	toreturn = []
-	dbdise = getDisease()
-	for x in range(0, len(dbdise)):
-		datamasc = []
-		datafem = []
-		xlist = []
-		total = []
-		myeq = Ecuacion.objects.get(nombreec="Extrapolacion lineal").asig
-		for y in range(0, len(dbdise[x])): #Extrayendo los datos de los objetos de la base
-			#listacon.append(dbdise[x][y])
-			xlist.append(int(y+1))
-			datamasc.append(int(dbdise[x][y].masculino))
-			datafem.append(int(dbdise[x][y].femenino))
 
-		remasc = getValue(xlist, datamasc, 2016, myeq)#here you must extratpolate expol(datadb)		
-		refem = getValue(xlist, datafem, 2016, myeq)#here you must extratpolate expol(datadb)
-		meses = asignarMeses()
-		#reformating the data
-		for i in range(0, 12):
-			listacon.append(Consulta(masculino=remasc[i], femenino=refem[i], ano=Ano(identi=2017), enfermedad=dbdise[x][0].enfermedad, mes=meses[i]))
-			total.append(remasc[i]+refem[i])
+    if(request.POST):
+  		print("there is a year")
+  		print(request.body)
+  		year = int(request.POST.get('year'))
+  		nombre = str(request.POST.get('formula_name'))
+		listacon = []
+		toreturn = []
+		dbdise = getDisease()
+		for x in range(0, len(dbdise)):
+			datamasc = []
+			datafem = []
+			xlist = []
+			total = []
+			myeq = Ecuacion.objects.get(nombreec=nombre).asig
+			for y in range(0, len(dbdise[x])): #Extrayendo los datos de los objetos de la base
+				xlist.append(int(y+1))
+				datamasc.append(int(dbdise[x][y].masculino))
+				datafem.append(int(dbdise[x][y].femenino))
 
-		graphd = {'name': dbdise[x][0].enfermedad.nombreenf, 'data': total}
+			remasc = getValue(xlist, datamasc, year, myeq)#here you must extratpolate expol(datadb)		
+			refem = getValue(xlist, datafem, year, myeq)#here you must extratpolate expol(datadb)
+			meses = asignarMeses()
+			#reformating the data
+			for i in range(0, 12):
+				listacon.append(Consulta(masculino=remasc[i], femenino=refem[i], ano=Ano(identi=year), enfermedad=dbdise[x][0].enfermedad, mes=meses[i]))
+				total.append(remasc[i]+refem[i])
 
-		toreturn.append(graphd)
+			graphd = {'name': dbdise[x][0].enfermedad.nombreenf, 'data': total}
 
-	context = {
-		'lista_consultas' : listacon,
-		'graphdata' : json.dumps(toreturn, ensure_ascii=True).encode("utf8")
-	    }
-	return render(request, 'datashow/html/layout.html', context)
+			toreturn.append(graphd)
+
+		context = {
+			'lista_consultas' : listacon,
+			'graphdata' : json.dumps(toreturn, ensure_ascii=True).encode("utf8"),
+			'formulas' : Ecuacion.objects.all(),
+	    	}
+		return render(request, 'datashow/html/layout.html', context)
+
+    else:
+		return render(request, 'datashow/html/layout.html', {'formulas' : Ecuacion.objects.all()})
+    
 
 
 def editeq(request):
@@ -90,7 +108,7 @@ def see(request):
 	context = {
 		'lista_consultas' : Consulta.objects.all()
 	    }
-	return render(request, 'datashow/html/Muestra de Consultas.html', context)
+	return render(request, 'datashow/html/Administrar Datos.html', context)
 	
 def getDisease():
 	topdiseases = []
@@ -107,12 +125,13 @@ def getValue(dx, dy, year, myeq):
 	list_interpol = []
 	xi=array(dx)
 	yi=array(dy)
+	param = [1.0, 1.0, 1.0, 1.0, 1.0]
+	sol = leastsq(error, param, args=(xi, yi, myeq))
 
-	afir, bfir = 1.0, 1.0
-
-	sol = leastsq(error, [afir, bfir], args=(xi, yi, myeq))	
-	a = sol[0][0]
-	b = sol[0][1]
+	c = []
+	for x in range(0, len(sol[0])):
+		c.append(sol[0][x])
+	
 	uplimit = 12*(year-2015)
 	for x in range(0, 12*(year-2015)):
   		res = eval(myeq)
@@ -121,10 +140,9 @@ def getValue(dx, dy, year, myeq):
 	return list_interpol[(uplimit-12):uplimit]	
 
 def error(parametros,x,y, myeq):
+  c = parametros		
   ''' El error se define pasando primero los parámetros y luego los vectores a ajustar '''
-  a,b = parametros
-  ec = myeq
-  equation = y - eval(ec)
+  equation = y - eval(myeq)
   return equation
 
 def asignarMeses():

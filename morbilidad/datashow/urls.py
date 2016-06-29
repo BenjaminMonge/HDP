@@ -9,17 +9,9 @@ urlpatterns = [
 	url(r'^management/$', views.management, name='management'),
 	url(r'^see/$', views.see, name='see'),
 	url(r'^extrapolate/$', views.extrapolate, name='extrapolate'),
+    url(r'^editeq/$', admin.site.admin_view(views.editeq)),
 
 ]
 
-def get_admin_urls(urls):
-    def get_urls():
-        my_urls = patterns('',
-            (r'^editeq/$', admin.site.admin_view(views.editeq))
-        )
-        return my_urls + urls
-    return get_urls
 
-admin_urls = get_admin_urls(admin.site.get_urls())
-admin.site.get_urls = admin_urls
 

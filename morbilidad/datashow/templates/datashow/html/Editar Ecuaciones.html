@@ -1,38 +1,63 @@
-<!DOCTYPE html> 
-<html>
+<!doctype html>
+
 <head>
-<!-- TemplateBeginEditable name="doctitle" -->
-<title>My site</title>
-<!-- TemplateEndEditable -->
-<!-- TemplateBeginEditable name="head" -->
-<meta http-equiv="description" content="">
-<meta http-equiv="keywords" content="">
-<!-- TemplateEndEditable -->
+<title>Morbilidad | Editar Ecuaciones</title>
+<meta charset="UTF-8" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.normalpage #page #bodywrap #contentwrap #contents #normalpage #left article table tr td form label {
+	font-size: 14px;
+}
+.normalpage #page #bodywrap #contentwrap #contents #normalpage #left article table tr td form {
+	font-size: 14px;
+}
+.normalpage #page #bodywrap #contentwrap #contents #normalpage #left article div {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+</style>
+<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<!--[if IE 6]>
+<script src="js/belatedPNG.js"></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
 </head>
-<body class="index">
-<div id="header-wrapper">
-<div id="header" class="content">
-<ul id="top-menu">
-<li class="first"><a href="Muestra de Consultas.html">Inicio</a></li>
-<li class="first"><a href="Agregar Datos.html">Agregar Consulta</a><a href="#"></a></li>
-<li class="first"><a href="#"></a><a href="Editar Ecuaciones.html">Editar Ecuaciones</a></li>	
-<ul id="header-menu">
-</ul></div>
-</div>
-<div id="fma-wrapper">
-  <div id="fma" class="content">
-    <h1>Edicion de ecuaciones</h1></div>
-</div>
-<div id="stacked-featured-popular-wrapper"><!-- TemplateBeginEditable name="MainContent" -->
-  <div id="stacked-featured-popular" class="content">
-    <div class="split-home">
-      <div class="column-one">
-        <div id="featured-box" class="home-box">
-          <p>Editar Ecuaciones          </p>
-          <table width="400" border="1" align="center">
-            <tr>
+<body class="normalpage">
+<!-- START PAGE SOURCE -->
+<section id="page">
+  <div id="bodywrap">
+    <section id="top">
+      <nav>
+        <h1 id="sitename"> <a href="Administrar Datos.html">Portfolio | Premium CSS Template </a></h1>
+        <ul id="sitenav">
+          <li><a href="Administrar Datos.html">Mostrar Consultas</a></li>
+          <li><a href="Agregar Consulta.html">Agregar Consultas</a></li>
+          <li class="current"><a href="Editar Ecuaciones.html">Editar Ecuaciones</a></li>
+          <li><a href="Iniciar Sesión.html">Cerrar Sesión</a></li>
+          
+        
+        </ul>
+      </nav>
+      <header id="normalheader"></header>
+    </section>
+    <section id="contentwrap">
+      <div id="contents">
+        <div id="topcolumns">
+
+       <!--Si quieren meter algo arriba del contenido.-->
+
+        </div>
+
+        <section id="normalpage">
+          <section id="left">
+            <h2>Editar Ecuaciones</h2>
+            <article>
+              <p>Editar Ecuaciones              </p>
+              <table width="400" border="1" align="center">
+                <tr>
               <td width="208"><form name="form1" method="post" action="">
                 <label for="ec1">Ecuacion</label>
+              1
               </form></td>
               <td width="176"><input name="ec1" type="text" id="ec1" size="25"></td>
               <td width="176"><form name="form7" method="post" action="">
@@ -75,34 +100,121 @@
                 <input type="submit" name="buttonec5" id="buttonec5" value="Guardar">
               </form></td>
             </tr>
-          </table>
-          <div class="t">
-            <p>&nbsp;</p>
-            <p>Tabla de Ecuaciones </p>
-          </div>
-          <div class="info">
-            <form name="form6" method="post" action="">
-            <table width="600" border="1" align="center">
-                <tr>
-                  <td width="300">No. de Ecuacion</td>
-                  <td width="284">Nombre Ecuacion</td>
-                  <td width="284">Ecuacion</td>
-                </tr>
-                <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                </tr>
-              </table>
-            </form>
-          </div>
-        </div>
+        </table>
+              <div align="center">
+                <p>&nbsp;</p>
+                <p>Tabla de ecuaciones</p>
+                <table width="850" border="0">
+<form id="formulafrm">
+  <tr>
+    <td align="center" valign="middle">
+    
+    
+      <p align="center"> Formula: 
+        <input type="text" name="txtFormula" value="" readonly/>
+      </p>
+      <table width="850" border="0" align="center">
+        
+        
+        <tr>
+          <td align="center">Numeros</td>
+          <td colspan="2" align="center" valign="top">Variables</td>
+          <td align="center">Operadores</td>
+        </tr>
+        <tr>
+          <td width="249" align="center"><table width="94" align="center"  >
+
+<tbody >
+
+<tr>
+
+<td width="24" align="center"><input type="button" value="7" onclick="agregarNumero('7');"/></td>
+<td width="24" align="center"><input type="button" value="8" onclick="agregarNumero('8');"/></td>
+<td width="24" align="center"><input type="button" value="9" onclick="agregarNumero('9');"/></td>
+</tr>
+<tr>
+<td align="center"><input type="button" value="4" onclick="agregarNumero('4');"/></td>
+<td align="center"><input type="button" value="5" onclick="agregarNumero('5');"/></td>
+<td align="center"><input type="button" value="6" onclick="agregarNumero('6');"/></td>
+</tr>
+<tr>
+<td align="center"><input type="button" value="1" onclick="agregarNumero('1');"/></td>
+<td align="center"><input type="button" value="2" onclick="agregarNumero('2');"/></td>
+<td align="center"><input type="button" value="3" onclick="agregarNumero('3');"/></td>
+</tr>
+<tr>
+<td align="center">&nbsp;</td>
+<td align="center"><input type="button" value="0" onclick="agregarNumero('0');"/></td>
+<td align="center">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</td>
+          <td colspan="2" align="center" valign="top"><table width="94" border="0" align="center">
+            <tr align="center">
+                <td><input type="button" value="X" onclick="agregarNumero('x');"/></td>
+                <td><input type="button" value="Y" onclick="agregarNumero('y');"/></td>
+                <td><input type="button" value="Z" onclick="agregarNumero('z');"/></td>
+              </tr>
+          </table></td>
+          <td width="278" align="center" valign="top"><table width="94" border="0" align="center">
+            <tr>
+              <td align="center"><input type="button" value="+" onclick="agregarNumero('+');"/></td>
+              <td align="center"><input type="button" value="-" onclick="agregarNumero('-');"/></td>
+              <td align="center"><input type="button" value="*" onclick="agregarNumero('*');"/></td>
+              <td align="center"><input type="button" value="^" onclick="agregarNumero('^');"/></td>
+              </tr>
+            <tr>
+              <td align="center"><input type="button" value="/" onclick="agregarNumero('/');"/></td>
+              <td align="center"><input type="button" value="=" onclick="agregarNumero('=');"/></td>
+              <td align="center"><input type="button" value="." onclick="agregarNumero('.');"/></td>
+              </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+          <td>&nbsp;</td>
+          <td align="right">&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center"><p>&nbsp;</p></td>
+          <td width="156">
+            <input name="txtguardar" type="submit" class="boton" id="txtguardar" value="Guardar" />
+          </td>
+          <td width="149" align="right">
+            <input name="txtCancelar" type="reset" class="boton" id="txtCancelar" value="Cancelar" />
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+    </table>
+      <p> </p>
+      <p></p></td>
+  </tr>
+  </form>
+</table>
+                                
+              </div>
+              <p>&nbsp;</p>
+            </article>
+           
+          </section>
+          <section id="sidebar">
+            <h2>&nbsp;</h2>
+            <article class="testimonials">
+              <blockquote>&nbsp;</blockquote></article>
+          </section>
+          <div class="clear"></div>
+        </section>
       </div>
-    </div>
+    </section>
   </div>
-<!-- TemplateEndEditable --></div>
-<!-- footer -->
-<div id="footer-wrapper"></div>
-<!-- TemplateBeginEditable name="end" --><!-- TemplateEndEditable -->
+     <footer id="pagefooter">
+       <div id="credits">
+      <p>  Aplicacion Morbilidad | HDP115 2016 </span>G-14 <span id="designcredit"></p>
+    </div>
+  </footer>
+</section>
+<!-- END PAGE SOURCE -->
 </body>
 </html>

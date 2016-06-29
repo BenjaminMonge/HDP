@@ -1,0 +1,116 @@
+ {% load staticfiles %}
+<!doctype html>
+
+<head>
+<title>Morbilidad | Administrar Datos</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+<style type="text/css">
+.normalpage #page #bodywrap #contentwrap #contents #normalpage #left article div table tr td form label {
+	font-weight: bold;
+	font-size: 14px;
+}
+.normalpage #page #bodywrap #contentwrap #contents #normalpage #left article div #alldata tr th {
+	font-weight: bold;
+	font-size: 14px;
+}
+</style>
+<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<!--[if IE 6]>
+<script src="js/belatedPNG.js"></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+
+</head>
+<body class="normalpage">
+<!-- START PAGE SOURCE -->
+<section id="page">
+  <div id="bodywrap">
+    <section id="top">
+      <nav>
+        <h1 id="sitename"> <a href="/">Portfolio | Premium CSS Template </a></h1>
+        <ul id="sitenav">
+          <li class="current"><a href="/see">Mostrar Consultas</a></li>
+          <li><a href="/management">Agregar Consultas</a></li>
+          <li><a href="/editeq">Editar Ecuaciones</a></li>
+          <li><a href="/admin/">Sesion de administrador</a></li>
+          <li><a href="/extrapolate">Extrapolacion</a></li>
+        </ul>
+      </nav>
+      <header id="normalheader"></header>
+    </section>
+    <section id="contentwrap">
+      <div id="contents">
+        <div id="topcolumns">
+
+    <!--Si quieren meter algo arriba del contenido.-->
+
+        </div>
+
+        <section id="normalpage">
+          <section id="left">
+            <h2>Mostrar Consultas</h2>
+            <article>
+              <p>Aqui se muestran todas las consultas de la base de datos y se puede buscar por terminos cada una de ellas</p>
+              <p>&nbsp;</p>
+              <p>
+
+          
+          <div class="info">
+              </p>
+              <p>&nbsp;</p>
+              <p>Datos presentes en la base</p>
+              <div id="consultas">
+              <div>
+                <p>
+                  <input class="search" placeholder="Search" />          
+                </p>
+              </div>
+              <table id="alldata" width="1200" border="1" align="center" >
+               <thead>
+                 <tr> 
+                  <th width="294" >Enfermedad</th>
+                  <th width="172">Masculino</th>
+                  <th width="172">Femenino</th>
+                  <th width="93" >Total</th>
+                  <th width="93" >Mes</th>
+                  <th width="93" >Año</th>
+               </tr>
+               </thead>
+               <tbody class="list">
+                  {% if lista_consultas %}
+                  {% for consulta in lista_consultas %}         
+                  <tr>
+                  <td width="294" class="enfermedad"> {{consulta.enfermedad}}</td>
+                  <td width="172" class="masculino"> {{consulta.masculino}} </td>
+                  <td width="172" class="femenino"> {{consulta.femenino}}</td>
+                  <td width="93"  class="total"> {{consulta.subtotal}}</td>
+                  <td width="93"  class="mes"> {{consulta.mes}}</td>
+                  <td width="93"  class="ano">{{consulta.ano}}</td>
+                </tr>
+                
+                  {% endfor %}
+                {% else %}
+                {% endif %}
+              </tbody>
+              </table>
+              </div>
+              <p>&nbsp;</p>
+           
+              
+            </article>
+           
+          </section>
+      
+          <div class="clear"></div>
+        </section>
+      </div>
+    </section>
+  </div>
+</section>
+<!-- END PAGE SOURCE -->
+</body>
+</html>
+<script src="{% static 'js/list.js' %}"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/guardar.js' %}"></script>
