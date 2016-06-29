@@ -51,24 +51,45 @@
 
         <section id="normalpage">
           <section id="left">
-            <h2>Editar Ecuaciones</h2>
+            <h2>Ecuaciones para proyeccion</h2>
             <article>
+            <br>
+            <br>
               <p>Editar Ecuaciones</p>
-              <table id="ecuaciones" width="900" border="1" align="center">
+              <p>Estas son las ecuaciones que utiliza el sistema para evaluarlas y extrapolar datos utilizando minimos cuadrados</p>
+              <br>
+              <p>Solo puedes definir una variable x y usar operaciones algebraicas, las constantes deben tener la forma "c[i]" numerandolas desde 0 hacia arriba para definir el orden y poderlas diferenciar.</p> 
+              <p>Ejemplo: "c[0] * x  + (c[1] * (x**2))</p>
+              <table id="ecuaciones" width="1300" border="1" align="center">
+              <thead>
+                <tr>   
+                  <th width="300">Nombre</th>
+                  <th width="300">Regla asignacion</th>
+               </tr>
+              </thead>
+              <tbody>
+                {% if ecuaciones %}
+              {% for ecua in ecuaciones %}
               <tr>
-              <td width="176" name="ecua" type="text" id="ecua" contenteditable="true"> {{ecua.nombreec}} </td>
-              <td align="center"><input type="button" value="+" class="mas"/></td>
-              <td align="center"><input type="button" value="-" class="menos"/></td>
-              <td align="center"><input type="button" value="*" class="por"/></td>
-              <td align="center"><input type="button" value="/" class="entre"/></td>
-              <td align="center"><input type="button" value="^" class="elevado"/></td>
-              <td align="center"><input type="button" value="Var" class="variable"/></td>
-              <td align="center"><input type="button" value="Cte" class="constante"/></td>
-              <td width="176"><form name="form7" method="post" action="">
-                <input type="submit" value="Guardar">
-              </form></td>
+              <td width="300" class="ecua" contenteditable="true"> {{ecua.nombreec}} </td>
+              <td width="300" id="asig" class="asig" contenteditable="true"> {{ecua.asig}} </td>
+              <td>
+                <input type="button" class="add" value="Nueva" />
+              </td>
+              <td>
+                <input type="button" class="delete" value="Borrar" />
+              </td>
             </tr>
+              {% endfor %}
+              {% else %}
+              No hay datos en la base
+              {% endif %}
+            </tbody> 
         </table>
+        <br>
+        <div>
+          <input type="button" onclick="guardar(ecuaciones);" value="Guardar cambios" />
+        </div>
               <p>&nbsp;</p>
             </article>
            

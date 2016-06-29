@@ -98,6 +98,10 @@ def extrapolate(request):
 
 
 def editeq(request):
+	if(request.is_ajax):
+		Ecuacion.objects.all().delete()
+		objs = json.loads(request.body)
+		#save here
 	#do a 
 	context	 = {
 		'ecuaciones': Ecuacion.objects.all()
